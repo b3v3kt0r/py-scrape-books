@@ -1,3 +1,5 @@
+from typing import Generator
+
 import scrapy
 from scrapy.http import Response
 
@@ -30,7 +32,7 @@ class BooksDetailsSpider(scrapy.Spider):
         }
         return book
 
-    def parse(self, response: Response, **kwargs) -> None:
+    def parse(self, response: Response, **kwargs) -> Generator:
         for book in response.css(".product_pod"):
             url = book.css("h3 > a::attr(href)").get()
             if url is not None:
